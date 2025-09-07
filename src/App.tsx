@@ -4,8 +4,9 @@ import { Card } from "./components/Card";
 import { ReactSortable } from "react-sortablejs";
 import { For } from "./utils/For";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { InputGroup } from "./components/Input";
+
 import { GroupWrapper, GroupTag } from "./components/DragGroup";
+import { InputGroup } from "./components/Input";
 
 const INIT_ARR = [
   { id: 1, name: "돌봄" },
@@ -50,9 +51,42 @@ function App() {
   const [third, setThird] = useLocalStorage("third", []);
   const [fourth, setFourth] = useLocalStorage("fourth", []);
   const [title, setTitle] = useState("");
+
+  const GroupArray = [
+    {
+      primary: "품의",
+      secondary: "작성",
+      length: init.length,
+      array: init,
+      setArray: setInit,
+    },
+    {
+      primary: "원인",
+      secondary: "세외수납",
+      length: second.length,
+      array: second,
+      setArray: setSecond,
+    },
+    {
+      primary: "결의",
+      secondary: "세외반환",
+      length: third.length,
+      array: third,
+      setArray: setThird,
+    },
+    {
+      primary: "지급",
+      secondary: "발송",
+      length: fourth.length,
+      array: fourth,
+      setArray: setFourth,
+    },
+  ];
+
   const addCard = () => {
     if (title.trim() === "") return;
     const allCards = [...init, ...second, ...third, ...fourth];
+    console.log(allCards);
     const idx = (allCards.length ? Math.max(...allCards.map((c) => c.id)) : 0) + 1;
     setInit([...init, { id: idx, name: title }]);
     setTitle("");
@@ -69,6 +103,7 @@ function App() {
         { id: 1, name: "보수변동자료" },
         { id: 2, name: "이번달 보험료작업" },
       ]);
+    if (group === "전부 지우기") setInit([]);
 
     setSecond([]);
     setThird([]);
@@ -76,27 +111,32 @@ function App() {
   };
   return (
     <div className="flex flex-col gap-4 container">
-      <div className="flex flex-row gap-4">
-        <button onClick={() => handleGroup("월초")}>월초</button>
-        <button onClick={() => handleGroup("중순")}>중순</button>
-        <button onClick={() => handleGroup("월말")}>월말</button>
-      </div>
-      <InputGroup addCard={addCard} />
-      <GroupWrapper
-        tag={<GroupTag primary="품의" secondary="작성" length={init.length} />}
-        group={<CardGroup array={init} setArray={setInit} />}
-      />
-      <GroupWrapper
-        tag={<GroupTag primary="원인" secondary="세외수납" length={second.length} />}
-        group={<CardGroup array={second} setArray={setSecond} />}
-      />
-      <GroupWrapper
-        tag={<GroupTag primary="결의" secondary="세외반환" length={third.length} />}
-        group={<CardGroup array={third} setArray={setThird} />}
-      />
-      <GroupWrapper
-        tag={<GroupTag primary="지급" secondary="발송" length={fourth.length} />}
-        group={<CardGroup array={fourth} setArray={setFourth} />}
+      <header className="flex flex-row gap-4">
+        <For
+          each={["월초", "중순", "월말", "전부 지우기"]}
+          render={(item) => (
+            <button key={item} onClick={() => handleGroup(item)}>
+              {item}
+            </button>
+          )}
+        />
+      </header>
+      <InputGroup action={addCard} title={title} setTitle={setTitle} />
+      <For
+        each={GroupArray}
+        render={(item) => (
+          <GroupWrapper
+            key={item.primary}
+            tag={
+              <GroupTag
+                primary={item.primary}
+                secondary={item.secondary}
+                length={item.length}
+              />
+            }
+            group={<CardGroup array={item.array} setArray={item.setArray} />}
+          />
+        )}
       />
     </div>
   );
