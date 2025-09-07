@@ -1,0 +1,123 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  width: 100%;
+  height: 7.5rem;
+  overflow-y: auto;
+  background-color: #f0f0f0;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.card-group::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  width: 15rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  cursor: grab;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.container {
+  width: calc(100vw - 4rem);
+  max-width: 1200px;
+}
+
+.add-button {
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: scale 0.1s ease-in-out;
+}
+
+.add-button:active {
+  scale: 0.92;
+}
+
+.add-button:focus {
+  outline: none;
+}
+
+.input-title {
+  width: 100%;
+  outline: 1px solid #aaa;
+  border: 1px solid #aaa;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  transition: scale 0.1s ease-in-out;
+}
+
+.delete-button:active {
+  scale: 0.92;
+}
+
+.delete-button:focus {
+  outline: none;
+}
+
+.tag-count {
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  border-radius: calc(100% - 1px);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0.65rem;
+}
+
+#separator {
+  height: 1px;
+  width: 1.15rem;
+  background-color: #ccc;
+  margin: 0.25rem 0;
+}
